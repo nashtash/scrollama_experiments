@@ -2,24 +2,23 @@ import React, { useState } from 'react';
 import { Scrollama, Step } from 'react-scrollama';
 
 const ScrollamaDemo = () => {
-  const [currentColor, setCurrentColor] = useState(null); //currentStepindex wird als gesamt Index verwendet
-
+  const [currentData, setCurrentData] = useState(null); //currentStepindex wird als gesamt Index verwendet   // null ist gleich der Initialwert
   // This callback fires when a Step hits the offset threshold. It receives the
   // data prop of the step, which in this demo stores the index of the step.
   const onStepEnter = ({ data }) => { //Event handler, der bei einem neuen Schritt sichtbar wird.
-    setCurrentColor(data);
+    setCurrentData(data);
   };
 
   const steps = ["cornFlowerBlue", "lightBlue", "deepSkyBlue", "dodgerBlue"]
 
   return (
-    <div style={{ margin: '50vh 0', border: '2px dashed skyblue', backgroundColor: currentColor }}>
+    <div style={{ margin: '50vh 0', border: '2px dashed skyblue', backgroundColor: currentData?.color }}>
       <div style={{ position: 'sticky', top: 0, border: '1px solid orchid' }}>
-        I'm sticky. The current triggered step index is: {currentColor}
+        I'm sticky. The current triggered step index is: {currentData?.key}
       </div>
       <Scrollama onStepEnter={onStepEnter} debug> 
-        {steps.map((stepvalue, stepIndex) => (
-          <Step data={stepvalue} key={stepIndex}>
+        {steps.map((color, stepIndex) => (
+          <Step data={{color: color, key: stepIndex}} key={stepIndex}>
             <div
               style={{
                 margin: '50vh 0',
